@@ -17,6 +17,10 @@ const todoSchema = new Schema({
     type: Boolean,
     default: false,
   },
+  important: {
+    type: Boolean,
+    default: false,
+  },
   createdAt: {
     type: Date,
     default: Date.now,

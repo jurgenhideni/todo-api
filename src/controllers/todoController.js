@@ -13,12 +13,13 @@ const getTodo = async (req, res) => {
 };
 
 const getTodos = async (req, res) => {
-  const { dueDate, completed } = req.query;
+  const { dueDate, completed, important } = req.query;
 
   const query = {};
 
   if (dueDate) query.dueDate = { $eq: dueDate };
   if (completed) query.completed = completed;
+  if (important) query.important = important;
 
   const todos = await Todo.find(query);
 
@@ -55,7 +56,7 @@ const createTodo = async (req, res) => {
 
 const updateTodo = async (req, res) => {
   const { id } = req.params;
-  const { title, description, dueDate, completed } = req.body;
+  const { title, description, dueDate, completed, important } = req.body;
 
   if (!id) return res.status(400).json({ error: "Id is required!" });
 
@@ -67,6 +68,7 @@ const updateTodo = async (req, res) => {
   if (dueDate) todo.dueDate = dueDate;
   if (completed) todo.completed = completed;
   if (description) todo.description = description;
+  if (important) todo.important = important;
 
   todo.updatedAt = new Date();
 
